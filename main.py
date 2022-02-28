@@ -51,10 +51,23 @@ headers = {
 
 #print(data.decode("utf-8"))
 
-conn.request("GET", "/race/53128", headers=headers)
+#conn.request("GET", "/race/53128", headers=headers)
 
-res = conn.getresponse()
-data = res.read()
+#res = conn.getresponse()
+#data = res.read()
 
-print(data.decode("utf-8"))
+#print(data.decode("utf-8"))
+
+import requests
+
+url = "https://greyhound-racing-uk.p.rapidapi.com/results"
+
+querystring = {"date":"2021-06-02"}
+
+response = requests.request("GET", url, headers=headers, params=querystring)
+
+print(response.text)
       
+import json
+
+print(json.dumps(response.text, indent=2))
