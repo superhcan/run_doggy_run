@@ -18,23 +18,16 @@ import math
 import numpy as np
 import pandas as pd
 import fasttrack as ft
+import greyhoundracinguk as gh
 
 from dotenv import load_dotenv
 load_dotenv()
 
 #api_key = os.getenv('FAST_TRACK_API_KEY', os.environ['FAST_TRACK_API_KEY'])
 #client = ft.Fasttrack(api_key)
-#track_codes = client.listTracks()
-
-import http.client
-
-conn = http.client.HTTPSConnection("greyhound-racing-uk.p.rapidapi.com")
-
-
-headers = {
-    'x-rapidapi-key': os.environ['x-rapidapi-key'],
-    'x-rapidapi-host': os.environ['x-rapidapi-host']
-    }
+#track_codes = client.getRaces()
+client = gh.Greyhoundracinguk(os.environ['x-rapidapi-key'])
+client.getRaces("2021-12-31")
 
 #conn.request("GET", "/results", headers=headers)
 
@@ -58,16 +51,16 @@ headers = {
 
 #print(data.decode("utf-8"))
 
-import requests
+#import requests
 
-url = "https://greyhound-racing-uk.p.rapidapi.com/results"
+#url = "https://greyhound-racing-uk.p.rapidapi.com/results"
 
-querystring = {"date":"2021-06-02"}
+#querystring = {"date":"2021-06-02"}
 
-response = requests.request("GET", url, headers=headers, params=querystring)
+#response = requests.request("GET", url, headers=headers, params=querystring)
 
-print(response.text)
+#print(response.text)
       
-import json
+#import json
 
-print(json.dumps(response.text, indent=2))
+#print(json.dumps(response.text, indent=2))
