@@ -1,5 +1,6 @@
 
 import os
+import json
 import sys
 import urllib
 import xmltodict
@@ -10,6 +11,23 @@ import mapping
 from tqdm import tqdm
 import time
 import requests
+import re
+
+
+def frac_to_dec(input_string):
+
+    if not input_string:
+        return 0
+    res = re.split(r"&frac", input_string)
+    if(res[0] == ""):
+        res[0] = "0"
+    w = int(res[0])
+    b = re.split(r"", res[1])
+    t = int(b[1])
+    n = int(b[2])
+    dec = w + t/n
+    return dec
+
 
 def jsondict(url, headers, querystring={}):
     
@@ -44,6 +62,32 @@ class Greyhoundracinguk():
             'x-rapidapi-host': self.host
         }
 
+    def getRaceDetails(self, race_id = "53128"):
+        
+        turl = self.url + "/race/" + race_id 
+        raceDetails = jsondict(turl, self.headers)
+        print(raceDetails)
+        rds = '{"a": 1, "b": 2}'
+        print(rds)
+        rd = json.loads(raceDetails)
+        print(rd)
+        df = pd.read_json(raceDetails)
+        df = pd.json_normalize(rd, "greyhounds", ["id_race", "date"])
+        print(df)
+        df['distance_beaten'] = df['distance_beaten'].apply(frac_to_dec, convert_dtype=True, args=())
+        df['sp'] = df['sp'].astype(float)
+        df.to_csv(f'data//raceddetails_{race_id}.csv', index = None)
+  
+    def getRacecards(self, dt_start, dt_end = None):
+        
+        turl = self.url + "/racecards"
+        racecards = jsondict(turl, self.headers, {"date":dt_end})
+        #tracks = jsondict(turl, self.headers, {})
+        df = pd.read_json(racecards)
+        print(df)
+        df.to_csv(r'data//racecards.csv', index = None)
+      
+    
     def getRaces(self, dt_start, dt_end = None):
         """
         Returns a list of tracks, track codes and their state

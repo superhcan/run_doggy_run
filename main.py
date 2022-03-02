@@ -27,7 +27,9 @@ load_dotenv()
 #client = ft.Fasttrack(api_key)
 #track_codes = client.getRaces()
 client = gh.Greyhoundracinguk(os.environ['x-rapidapi-key'])
-client.getRaces("2021-12-31")
+#client.getRaces("2022-03-01")
+#client.getRacecards("2021-03-01")
+client.getRaceDetails()
 
 #conn.request("GET", "/results", headers=headers)
 

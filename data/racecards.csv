@@ -20,6 +20,9 @@ id_race,dogTrack,date,title,distance,finished,canceled
 79085,Doncaster,2022-03-02 19:56:00,Race 7,450m,1,0
 79086,Doncaster,2022-03-02 20:17:00,Race 8,275m,1,0
 79087,Doncaster,2022-03-02 20:38:00,Race 9,275m,1,0
+79088,Doncaster,2022-03-02 20:54:00,Race 10,483m,0,0
+79089,Doncaster,2022-03-02 21:12:00,Race 11,483m,0,0
+79090,Doncaster,2022-03-02 21:28:00,Race 12,483m,0,0
 79027,Harlow,2022-03-02 10:46:00,Race 1,238m,1,0
 79028,Harlow,2022-03-02 11:01:00,Race 2,415m,1,0
 79029,Harlow,2022-03-02 11:16:00,Race 3,238m,1,0
@@ -41,6 +44,8 @@ id_race,dogTrack,date,title,distance,finished,canceled
 79097,Harlow,2022-03-02 20:03:00,Race 7,592m,1,0
 79098,Harlow,2022-03-02 20:23:00,Race 8,415m,1,0
 79099,Harlow,2022-03-02 20:43:00,Race 9,415m,1,0
+79100,Harlow,2022-03-02 21:02:00,Race 10,592m,0,0
+79101,Harlow,2022-03-02 21:18:00,Race 11,238m,0,0
 79065,Hove,2022-03-02 13:57:00,Race 1,500m,1,0
 79066,Hove,2022-03-02 14:12:00,Race 2,500m,1,0
 79067,Hove,2022-03-02 14:32:00,Race 3,500m,1,0
@@ -101,11 +106,14 @@ id_race,dogTrack,date,title,distance,finished,canceled
 79010,Sunderland,2022-03-02 20:12:00,Race 8,450m,1,0
 79011,Sunderland,2022-03-02 20:27:00,Race 9,450m,1,0
 79012,Sunderland,2022-03-02 20:46:00,Race 10,450m,1,0
+79013,Sunderland,2022-03-02 21:01:00,Race 11,450m,0,0
+79014,Sunderland,2022-03-02 21:16:00,Race 12,450m,0,0
 78969,Swindon,2022-03-02 11:13:00,Race 1,476m,1,0
 78970,Swindon,2022-03-02 11:28:00,Race 2,476m,1,0
 78971,Swindon,2022-03-02 11:43:00,Race 3,476m,1,0
 78972,Swindon,2022-03-02 11:58:00,Race 4,262m,1,0
 78973,Swindon,2022-03-02 12:13:00,Race 5,476m,1,0
+78974,Swindon,2022-03-02 12:28:00,Race 6,476m,0,1
 78975,Swindon,2022-03-02 12:43:00,Race 7,476m,1,0
 78976,Swindon,2022-03-02 12:58:00,Race 8,476m,1,0
 78977,Swindon,2022-03-02 13:13:00,Race 9,476m,1,0
@@ -122,3 +130,5 @@ id_race,dogTrack,date,title,distance,finished,canceled
 79022,Yarmouth,2022-03-02 20:21:00,Race 8,462m,1,0
 79023,Yarmouth,2022-03-02 20:36:00,Race 9,277m,1,0
 79024,Yarmouth,2022-03-02 20:52:00,Race 10,277m,1,0
+79025,Yarmouth,2022-03-02 21:11:00,Race 11,462m,0,0
+79026,Yarmouth,2022-03-02 21:26:00,Race 12,462m,0,0
