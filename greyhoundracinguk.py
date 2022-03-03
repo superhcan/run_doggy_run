@@ -62,21 +62,22 @@ class Greyhoundracinguk():
             'x-rapidapi-host': self.host
         }
 
-    def getRaceDetails(self, race_id = "53128"):
-        
-        turl = self.url + "/race/" + race_id 
-        raceDetails = jsondict(turl, self.headers)
-        print(raceDetails)
-        rds = '{"a": 1, "b": 2}'
-        print(rds)
-        rd = json.loads(raceDetails)
-        print(rd)
-        df = pd.read_json(raceDetails)
-        df = pd.json_normalize(rd, "greyhounds", ["id_race", "date"])
-        print(df)
-        df['distance_beaten'] = df['distance_beaten'].apply(frac_to_dec, convert_dtype=True, args=())
-        df['sp'] = df['sp'].astype(float)
-        df.to_csv(f'data//raceddetails_{race_id}.csv', index = None)
+    def getRaceDetails(self, race_id = "53128", dt_start = "2021-10-12"):
+
+        results_df = self.getResults(dt_start)
+        races = results_df['id_race'].tolist()
+        races_df = pd.DataFrame()
+        for race in races:
+            turl = self.url + "/race/" + str(race)
+            raceDetails = jsondict(turl, self.headers)
+            print(raceDetails)
+            df = pd.read_json(raceDetails)
+            df = pd.json_normalize(json.loads(raceDetails), "greyhounds", ["id_race", "date"])
+            races_df = pd.concat([races_df, df])
+            print(races_df)
+            races_df['distance_beaten'] = races_df['distance_beaten'].apply(frac_to_dec, convert_dtype=True, args=())
+            races_df['sp'] = df['sp'].astype(float)
+            races_df.to_csv(f'data//raceddetails.csv', index = None)
   
     def getRacecards(self, dt_start, dt_end = None):
         
@@ -88,7 +89,7 @@ class Greyhoundracinguk():
         df.to_csv(r'data//racecards.csv', index = None)
       
     
-    def getRaces(self, dt_start, dt_end = None):
+    def getResults(self, dt_start, dt_end = None):
         """
         Returns a list of tracks, track codes and their state
         Returns
@@ -99,12 +100,17 @@ class Greyhoundracinguk():
         """
 
         turl = self.url + "/results"
-        tracks = jsondict(turl, self.headers, {"date":dt_end})
+        results = jsondict(turl, self.headers, {"date":dt_end})
         #tracks = jsondict(turl, self.headers, {})
-        df = pd.read_json(tracks)
+        print(results)
+        df = pd.read_json(results)
         print(df)
-        df.to_csv(r'data/tracks.csv', index = None)
+        df['distance'] = df['distance'].apply(lambda x: int(x.replace("m", "")))
+        df.to_csv(r'data/results.csv', index = None)
         print(df.groupby(['dogTrack']).count())
+        return df
+        
+        
         
         
         #df = pd.DataFrame({
