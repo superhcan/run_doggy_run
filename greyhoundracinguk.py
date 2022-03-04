@@ -11,22 +11,8 @@ import mapping
 from tqdm import tqdm
 import time
 import requests
-import re
+import doglength as dl
 
-
-def frac_to_dec(input_string):
-
-    if not input_string:
-        return 0
-    res = re.split(r"&frac", input_string)
-    if(res[0] == ""):
-        res[0] = "0"
-    w = int(res[0])
-    b = re.split(r"", res[1])
-    t = int(b[1])
-    n = int(b[2])
-    dec = w + t/n
-    return dec
 
 
 def jsondict(url, headers, querystring={}):
@@ -75,7 +61,7 @@ class Greyhoundracinguk():
             df = pd.json_normalize(json.loads(raceDetails), "greyhounds", ["id_race", "date"])
             races_df = pd.concat([races_df, df])
             print(races_df)
-            races_df['distance_beaten'] = races_df['distance_beaten'].apply(frac_to_dec, convert_dtype=True, args=())
+            races_df['distance_beaten'] = races_df['distance_beaten'].apply(dl.to_sec, convert_dtype=True, args=())
             races_df['sp'] = df['sp'].astype(float)
             races_df.to_csv(f'data//raceddetails.csv', index = None)
   

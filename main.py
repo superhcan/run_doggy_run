@@ -21,6 +21,8 @@ import fasttrack as ft
 import greyhoundracinguk as gh
 
 from dotenv import load_dotenv
+
+#def main():
 load_dotenv()
 
 #api_key = os.getenv('FAST_TRACK_API_KEY', os.environ['FAST_TRACK_API_KEY'])
@@ -65,4 +67,4 @@ client.getRaceDetails()
       
 #import json
 
-#print(json.dumps(response.text, indent=2))
+#print(json.dumps(response.text, indent=2
