@@ -96,7 +96,7 @@ class Fasttrack():
                 print(exception)
                 print('Retrying once ..')
                 time.sleep(15)
-                meeting_dict = xmldict(baseUrl + seckey + '/' + dt)
+                meeting_dict = xmldict(self.url + self.seckey + '/' + dt)
             if meeting_dict.get('exception', None) == 'Invalid Date Specified':
                 print("\nInvalid Date Specified .. stopping request")
                 meetingDf = pd.DataFrame()

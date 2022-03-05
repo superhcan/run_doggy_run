@@ -22,16 +22,18 @@ import greyhoundracinguk as gh
 
 from dotenv import load_dotenv
 
-#def main():
-load_dotenv()
+def main():
+    load_dotenv()
 
 #api_key = os.getenv('FAST_TRACK_API_KEY', os.environ['FAST_TRACK_API_KEY'])
 #client = ft.Fasttrack(api_key)
 #track_codes = client.getResults()
-client = gh.Greyhoundracinguk(os.environ['x-rapidapi-key'])
+    client = gh.Greyhoundracinguk(os.environ['x-rapidapi-key'])
 #client.getResults("2022-03-01")
 #client.getRacecards("2021-03-01")
-client.getRaceDetails()
+    for day in range(1, 365):
+        dt_date = datetime.strftime(datetime.now() - timedelta(day), '%Y-%m-%d')
+        client.getRaceDetails(dt_date)
 
 #conn.request("GET", "/results", headers=headers)
 
@@ -68,3 +70,5 @@ client.getRaceDetails()
 #import json
 
 #print(json.dumps(response.text, indent=2
+
+main()

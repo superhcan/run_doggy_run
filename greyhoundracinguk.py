@@ -1,4 +1,3 @@
-
 import os
 import json
 import sys
@@ -16,22 +15,18 @@ import doglength as dl
 
 
 def jsondict(url, headers, querystring={}):
-    
+
     response = requests.request("GET", url, headers=headers, params=querystring)
+    #print("resp ", response.text)
+    json_resp = json.loads(response.text)
+    #print("xxx ", json_resp)
+    if ("message" in json_resp):
+        print("Sleeping...")
+        time.sleep(61)
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        #print("resp ", response.text)
     return response.text
     
-
-def xmldict(url):
-    # Reads an xml file into as a python dict
-    hdr = {'User-Agent':'Mozilla/5.0'}
-    req = urllib.request.Request(url, headers = hdr)
-    file = urllib.request.urlopen(req)
-    
-    data = file.read()
-    file.close()
-
-    data = xmltodict.parse(data)
-    return data
 
 class Greyhoundracinguk():
     """
@@ -48,30 +43,38 @@ class Greyhoundracinguk():
             'x-rapidapi-host': self.host
         }
 
-    def getRaceDetails(self, race_id = "53128", dt_start = "2021-10-12"):
-
+    
+    def getRaceDetails(self, dt_start = "2021-10-12", race_id = "53128"):
+        print("Getting races from ", dt_start)
         results_df = self.getResults(dt_start)
         races = results_df['id_race'].tolist()
-        races_df = pd.DataFrame()
-        for race in races:
+        #print("Races ", results_df)
+        #races_df = pd.DataFrame()
+        for i, race in enumerate(races):
+            print("i ", i)
+            file_path = f'data//racedetails//{dt_start}_{race}.csv'
+            if (os.path.isfile(file_path)):
+                continue
             turl = self.url + "/race/" + str(race)
             raceDetails = jsondict(turl, self.headers)
-            print(raceDetails)
-            df = pd.read_json(raceDetails)
-            df = pd.json_normalize(json.loads(raceDetails), "greyhounds", ["id_race", "date"])
-            races_df = pd.concat([races_df, df])
-            print(races_df)
+            #print(raceDetails)
+            #df = pd.read_json(raceDetails)
+            races_df = pd.json_normalize(json.loads(raceDetails), "greyhounds", ["id_race", "date"], errors='ignore')
+            #races_df = pd.concat([races_df, df])
+            #print(races_df)
             races_df['distance_beaten'] = races_df['distance_beaten'].apply(dl.to_sec, convert_dtype=True, args=())
-            races_df['sp'] = df['sp'].astype(float)
-            races_df.to_csv(f'data//raceddetails.csv', index = None)
-  
+            #races_df['sp'] = races_df['sp'].astype(float)
+            races_df.to_csv(file_path, index = None)
+
+
+    
     def getRacecards(self, dt_start, dt_end = None):
         
         turl = self.url + "/racecards"
         racecards = jsondict(turl, self.headers, {"date":dt_end})
         #tracks = jsondict(turl, self.headers, {})
         df = pd.read_json(racecards)
-        print(df)
+        #print(df)
         df.to_csv(r'data//racecards.csv', index = None)
       
     
@@ -86,14 +89,14 @@ class Greyhoundracinguk():
         """
 
         turl = self.url + "/results"
-        results = jsondict(turl, self.headers, {"date":dt_end})
+        results = jsondict(turl, self.headers, {"date":dt_start})
         #tracks = jsondict(turl, self.headers, {})
-        print(results)
+        #print("results ", results)
         df = pd.read_json(results)
-        print(df)
+        #print(df)
         df['distance'] = df['distance'].apply(lambda x: int(x.replace("m", "")))
         df.to_csv(r'data/results.csv', index = None)
-        print(df.groupby(['dogTrack']).count())
+        #print(df.groupby(['dogTrack']).count())
         return df
         
         

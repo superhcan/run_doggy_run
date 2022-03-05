@@ -17,12 +17,15 @@ import re
 
 def frac_to_dec(input_string):
 
+    print("input_string ", input_string)
     if not input_string:
         return 0
     res = re.split(r"&frac", input_string)
     print("res ", res)
     if(res[0] == ""):
         return 0    
+    if(len(res) == 1):
+        return float(res[0])     
     w = int(res[0])
     if not res[1]:
         return w
@@ -34,12 +37,20 @@ def frac_to_dec(input_string):
         return dec
        
 def to_sec(distance_beaten):
-    if(distance_beaten == 'ns'):
+    if(distance_beaten == 'dh'):
+        return 0.0
+    elif(distance_beaten == 'ns'):
         return 0.01
     elif(distance_beaten == 'hd'):
         return 0.02
     elif(distance_beaten == 'nk'):
         return 0.03
+    elif(distance_beaten == 'sh'):
+        return 0.015    
+    elif(distance_beaten == 'dis'):
+        return 99.9    
+    elif(distance_beaten == 'dnf'):
+        return 99.9 
     else:        
-        return frac_to_dec(distance_beaten) * 0.07
+        return round(frac_to_dec(distance_beaten) * 0.07, 4)
 

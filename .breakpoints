@@ -1,34 +1,3 @@
 {
-  "files": {
-    "doglength.py": [
-      {
-        "id": "b0d12759-65bd-412e-9a06-df33ee29f4a8",
-        "line": 20,
-        "version": 355,
-        "index": 509
-      },
-      {
-        "id": "50fb6cdc-a390-4e6b-be22-f17862656e6e",
-        "line": 34,
-        "version": 355,
-        "index": 804
-      }
-    ],
-    "greyhoundracinguk.py": [
-      {
-        "id": "0766ef8f-3278-4349-b8f5-48ba86b3ada3",
-        "line": 16,
-        "version": 2037,
-        "index": 235
-      }
-    ],
-    "pyproject.toml": [
-      {
-        "id": "11f779b6-4d3f-4fe4-98b3-63a4c048ed9c",
-        "line": 21,
-        "version": 1,
-        "index": 438
-      }
-    ]
-  }
+  "files": {}
 }
